@@ -1,0 +1,15 @@
+version: "3.1"
+
+services:
+  db:
+    image: postgres:11.5
+    container_name: my_postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: donitas
+      POSTGRES_DB: koapg
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - /Users/oscaroceguerabibriesca/pg-with-koa:/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
