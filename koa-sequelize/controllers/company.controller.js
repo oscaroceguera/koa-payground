@@ -12,7 +12,13 @@ module.exports = {
   },
   async find(ctx) {
     try {
-      ctx.body = await ctx.db.Company.findAll()
+      ctx.body = await ctx.db.Company.findAll({
+        include: [
+          {
+            model: ctx.db.Job
+          }
+        ]
+      })
     } catch (error) {
       ctx.throw(500, error);
     }
@@ -51,6 +57,7 @@ module.exports = {
       const results = await ctx.db.Company.update(
         {
           name: ctx.request.body.name,
+          city: ctx.request.body.city,
           address: ctx.request.body.address,
         },
         {

@@ -4,7 +4,14 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING
   }, {});
   Job.associate = function(models) {
-    // associations can be defined here
+    Job.belongsTo(models.Company, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+    Job.belongsToMany(models.Candidate, {
+      through: 'Application'
+    })
   };
   return Job;
 };
