@@ -5,6 +5,7 @@ module.exports = {
         name: ctx.request.body.name,
         city: ctx.request.body.city,
         address: ctx.request.body.address,
+        userId: ctx.state.user
       });
     } catch (error) {
       ctx.throw(500, error);
@@ -13,12 +14,13 @@ module.exports = {
   async find(ctx) {
     try {
       ctx.body = await ctx.db.Company.findAll({
+        userId: ctx.state.user,
         include: [
           {
-            model: ctx.db.Job
-          }
-        ]
-      })
+            model: ctx.db.Job,
+          },
+        ],
+      });
     } catch (error) {
       ctx.throw(500, error);
     }

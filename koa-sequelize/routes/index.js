@@ -4,21 +4,28 @@ const {
   CompanyController,
   JobController,
   ApplicationController,
+  UserController
 } = require("../controllers");
+
+const isAuthenticated = require('../polices/isAuthenticated')
 
 // Company
 router
-  .post("/companies", CompanyController.create)
-  .get("/companies", CompanyController.find)
-  .get("/companies/:id", CompanyController.findOne)
-  .put("/companies/:id", CompanyController.updateCompany)
-  .delete("/companies/:id", CompanyController.destroy);
+  .post("/companies", isAuthenticated, CompanyController.create)
+  .get("/companies", isAuthenticated, CompanyController.find)
+  .get("/companies/:id", isAuthenticated, CompanyController.findOne)
+  .put("/companies/:id", isAuthenticated, CompanyController.updateCompany)
+  .delete("/companies/:id", isAuthenticated, CompanyController.destroy);
 
 // Job
-router.post("/jobs", JobController.create)
-  .get("/jobs", JobController.find)
+router.post("/jobs", isAuthenticated, JobController.create)
+  .get("/jobs", isAuthenticated, JobController.find)
 
 // ApplicationController
-router.post("/applications", ApplicationController.create);
+router.post("/applications", isAuthenticated, ApplicationController.create);
+
+// User
+router.post("/signup", UserController.signup);
+router.post("/login", UserController.login)
 
 module.exports = router
