@@ -2,6 +2,7 @@ const Koa = require('koa')
 const Router = require('koa-router')
 const bodyParser = require('koa-parser')
 const _ = require('lodash')
+const serve = require('koa-static')
 
 const router = require('./routes')
 
@@ -15,6 +16,7 @@ db.sequelize.sync({force: false})
 
 app.context.db = db;
 app.use(bodyParser());
+app.use(serve(__dirname + '/public'))
 app.use(router.routes())
 
 app.listen(PORT)
